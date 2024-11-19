@@ -208,7 +208,7 @@ $(document).ready(function () {
       if (loginForm.title) {
         $("#api h1[role='heading']").text(loginForm.title);
       }
-
+ $(".intro").remove();
       const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
       if (emailElement) {
         $("#api label[for='email']").text(emailElement.placeholder);
