@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{PAGE_TITLE}}</title>
   <style>
+      :root {
+    --radius-button: 4px; /* Adjust as needed */
+    --accent-color: #ff4081; /* Replace with your palette.accent400.main */
+    --grey500: #9e9e9e; /* Replace with your palette.grey500 */
+  }
     /* General Reset */
     * {
       margin: 0;
@@ -174,8 +179,31 @@
       text-align: right;
     }
       input {
-        width: 100%;
-      }
+    border-radius: var(--radius-button) !important;
+    font-size: 1.0625rem;
+    letter-spacing: 0.2px;
+    color: var(--grey500);
+    height: inherit;
+    border: none;
+    border-bottom: 2px solid var(--grey500);
+    outline: none;
+           width: 100%;
+    padding: 8px 0;
+    background: transparent;
+  }
+
+  input:focus {
+    border-bottom-color: var(--accent-color) !important;
+  }
+
+  input:hover:not(:disabled):not(:focus) {
+    border-bottom-color: var(--accent-color);
+  }
+
+  input:disabled {
+    border-bottom-color: var(--grey500);
+    cursor: not-allowed;
+  }
     .small-link:hover {
       text-decoration: underline;
     }
