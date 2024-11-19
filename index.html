@@ -95,7 +95,7 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-  $(document).ready(function () {
+$(document).ready(function () {
   const params = new URLSearchParams(window.location.search);
   const apiUrl = params.get("url");
 
@@ -145,6 +145,11 @@
         $("#api label[for='legalAge']").html(legalAgeElement.placeholder);
       }
 
+      // Update the button label
+      if (loginForm.buttonLabel) {
+        $("#api button[type='submit']").text(loginForm.buttonLabel);
+      }
+
       // Make the body visible after content is ready
       $("body").css("visibility", "visible");
     } catch (error) {
@@ -154,6 +159,7 @@
 
   fetchAndApplyData();
 });
+
 
   </script>
 </head>
