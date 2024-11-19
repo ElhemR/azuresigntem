@@ -120,31 +120,12 @@
       border-bottom-color: var(--accent-color);
     }
 
-    .submit-btn {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      color: #fff;
-      background: #272a3c;
-      border: none;
-      border-radius: var(--radius-button);
-      cursor: pointer;
-      margin-top: 20px;
-    }
 
-    .submit-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .submit-btn:hover:not(:disabled) {
-      background: #444;
-    }
     .entry-item {
       text-align:left;
       margin-bottom: 1.5rem;
     }
-     input[type="submit"] {
+     .submit-btn {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
@@ -158,30 +139,31 @@
     transition: all 0.3s ease;
     outline: none;
     box-shadow: none;
+    margin-top: 1rem;
   }
 
   /* Hover state */
-  input[type="submit"]:hover {
+   .submit-btn:hover {
     background-color: transparent;
     text-decoration: none;
     box-shadow: 0 0 0 1px var(--grey500);
   }
 
   /* Focus state */
-  input[type="submit"]:focus {
+   .submit-btn:focus {
     background-color: transparent;
     text-decoration: none;
     box-shadow: 0 0 0 1px var(--grey500);
   }
 
   /* Active state */
-  input[type="submit"]:active {
+   .submit-btn:active {
     background-color: rgba(158, 158, 158, 0.1); /* Faded grey500 */
     color: var(--grey500);
   }
 
   /* Disabled state */
-  input[type="submit"]:disabled {
+   .submit-btn:disabled {
     border: 1px solid var(--grey400);
     color: var(--grey400);
     cursor: not-allowed;
@@ -246,7 +228,7 @@ $(document).ready(function () {
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
         const submitButtons = $("#api button[type='submit']");
-        submitButtons.prop("class", '.submit-btn'); 
+        submitButtons.prop("class", 'submit-btn'); 
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
