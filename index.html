@@ -19,17 +19,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
-      visibility: hidden; /* Initially hidden */
-    }
-
-    .loading {
-      visibility: visible;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
-      color: #333;
+      visibility: hidden; /* Hide content initially */
     }
 
     .header-container {
@@ -82,25 +72,23 @@
       margin-bottom: 15px;
     }
 
-    .confirmation {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin-top: 15px;
-      font-size: 0.9rem;
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
       color: #333;
     }
 
-    .confirmation input[type="checkbox"] {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #ccc;
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
       border-radius: 4px;
-    }
-
-    .confirmation label {
-      line-height: 1.2;
+      font-size: 1rem;
     }
 
     .submit-btn {
@@ -112,15 +100,9 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 20px;
     }
 
-    .submit-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
-
-    .submit-btn:hover:not(:disabled) {
+    .submit-btn:hover {
       background: #555;
     }
   </style>
@@ -132,7 +114,6 @@
 
       if (!apiUrl) {
         console.error("No URL parameter found in query string.");
-        $('.loading').text("Error: No URL provided.");
         return;
       }
 
@@ -147,61 +128,32 @@
           const props = data.props || {};
           const loginForm = props.loginForm || {};
 
-          // Set welcome message
+          // Replace placeholders with actual content
           if (props.pageTitle) {
+            document.title = props.pageTitle;
             $(".welcome-message").text(props.pageTitle);
           }
 
-          // Update login form labels and placeholders
           if (loginForm.title) {
-            $('.title').text(loginForm.title);
+            $(".title").text(loginForm.title);
           }
 
           const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
           if (emailElement) {
-            $('#api').append(`
-              <label for="email">${emailElement.placeholder}</label>
-              <input type="email" id="email" placeholder="${emailElement.placeholder}">
-            `);
+            $('label[for="email"]').text(emailElement.placeholder);
+            $('#email').attr("placeholder", emailElement.placeholder);
           }
 
           const passwordElement = loginForm.elements.find(el => el.id === "password");
           if (passwordElement) {
-            $('#api').append(`
-              <label for="password">${passwordElement.placeholder}</label>
-              <input type="password" id="password" placeholder="${passwordElement.placeholder}">
-            `);
+            $('label[for="password"]').text(passwordElement.placeholder);
+            $('#password').attr("placeholder", passwordElement.placeholder);
           }
 
-          const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
-          if (legalAgeElement && legalAgeElement.required) {
-            const confirmationText = legalAgeElement.placeholder || "I confirm I am of legal age.";
-            const confirmationGroup = $(`
-              <div class="confirmation">
-                <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
-                <label for="dynamic-confirmation-checkbox">${confirmationText}</label>
-              </div>
-            `);
-
-            const submitButton = $(`
-              <button type="submit" class="submit-btn" disabled>${loginForm.buttonLabel || "Submit"}</button>
-            `);
-
-            confirmationGroup.insertBefore(submitButton);
-
-            confirmationGroup.find('input').on('change', function () {
-              submitButton.prop('disabled', !$(this).is(':checked'));
-            });
-
-            $('#api').append(confirmationGroup, submitButton);
-          }
-
-          // Show the body content once everything is ready
-          $('body').css('visibility', 'visible');
-          $('.loading').hide();
+          // Make the body visible after content is ready
+          $("body").css("visibility", "visible");
         } catch (error) {
           console.error("Error fetching data:", error.message);
-          $('.loading').text("Failed to load data.");
         }
       }
 
@@ -210,24 +162,28 @@
   </script>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loading">Loading...</div>
-
   <!-- Header Section -->
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
   </div>
 
   <!-- Welcome Message -->
-  <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
+  <div class="welcome-message"></div>
 
   <!-- Main Content -->
   <div class="container">
-    <!-- Title -->
-    <h1 class="title">{{HEADER_LABEL}}</h1>
-
-    <!-- Azure AD B2C Login Form Placeholder -->
-    <div id="api"></div>
+    <h1 class="title"></h1>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email"></label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="password"></label>
+        <input type="password" id="password" name="password">
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+    </form>
   </div>
 </body>
 </html>
