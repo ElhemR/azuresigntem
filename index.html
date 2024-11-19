@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{PAGE_TITLE}}</title>
   <style>
-      :root {
-    --radius-button: 4px; /* Adjust as needed */
-    --accent-color: #ff4081; /* Replace with your palette.accent400.main */
-    --grey500: #9e9e9e; /* Replace with your palette.grey500 */
-  }
+    :root {
+      --radius-button: 4px; /* Default to rounded corners */
+      --accent-color: #ff4081; /* Replace with your palette.accent400.main */
+      --grey500: #9e9e9e; /* Replace with your palette.grey500 */
+    }
+
     /* General Reset */
     * {
       margin: 0;
@@ -61,23 +62,14 @@
       margin: 20px 0;
     }
 
-    @media (max-width: 600px) {
-      .welcome-message {
-        font-size: 1.875rem;
-        letter-spacing: 0.094rem;
-        line-height: 1.1;
-      }
-    }
-
     .container {
       width: 100%;
       max-width: 400px;
       background: #fff;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: var(--radius-button);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
-   
     }
 
     [role="heading"] {
@@ -103,50 +95,25 @@
       color: #272a3c;
     }
 
-    .form-group input {
+    input {
       width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 8px 0;
+      font-size: 1.0625rem;
+      letter-spacing: 0.2px;
+      color: var(--grey500);
+      border: none;
+      border-bottom: 2px solid var(--grey500);
+      border-radius: var(--radius-button);
+      outline: none;
+      background: transparent;
     }
 
-    .password-toggle {
-      position: relative;
+    input:focus {
+      border-bottom-color: var(--accent-color) !important;
     }
 
-    .password-toggle input {
-      padding-right: 40px;
-    }
-
-    .password-toggle .toggle-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1rem;
-      color: #333;
-    }
-
-    .confirmation {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      margin-top: 15px;
-      color: #333;
-    }
-
-    .confirmation input[type="checkbox"] {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .confirmation label {
-      line-height: 1.2;
+    input:hover:not(:disabled):not(:focus) {
+      border-bottom-color: var(--accent-color);
     }
 
     .submit-btn {
@@ -156,7 +123,7 @@
       color: #fff;
       background: #272a3c;
       border: none;
-      border-radius: 4px;
+      border-radius: var(--radius-button);
       cursor: pointer;
       margin-top: 20px;
     }
@@ -168,48 +135,6 @@
 
     .submit-btn:hover:not(:disabled) {
       background: #444;
-    }
-
-    .small-link {
-      display: block;
-      font-size: 0.85rem;
-      color: #3cbcc3;
-      margin: 10px 0;
-      text-decoration: none;
-      text-align: right;
-    }
-      input {
-    border-radius: var(--radius-button) !important;
-    font-size: 1.0625rem;
-    letter-spacing: 0.2px;
-    color: var(--grey500);
-    height: inherit;
-    border: none;
-    border-bottom: 2px solid var(--grey500);
-    outline: none;
-           width: 100%;
-    padding: 8px 0;
-    background: transparent;
-  }
-
-  input:focus {
-    border-bottom-color: var(--accent-color) !important;
-  }
-
-  input:hover:not(:disabled):not(:focus) {
-    border-bottom-color: var(--accent-color);
-  }
-
-  input:disabled {
-    border-bottom-color: var(--grey500);
-    cursor: not-allowed;
-  }
-    .small-link:hover {
-      text-decoration: underline;
-    }
-    .entry-item {
-      text-align: left;
-      margin-bottom: 1.5rem;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -233,6 +158,14 @@ $(document).ready(function () {
       const data = await response.json();
       const props = data.props || {};
       const loginForm = props.loginForm || {};
+      const generalSettings = props.appFrame?.settings?.general || {};
+
+      // Set border radius based on corners property
+      if (generalSettings.corners === "edgy") {
+        document.documentElement.style.setProperty("--radius-button", "0");
+      } else {
+        document.documentElement.style.setProperty("--radius-button", "4px");
+      }
 
       // Replace placeholders
       if (props.pageTitle) {
@@ -243,7 +176,7 @@ $(document).ready(function () {
       if (loginForm.title) {
         $("#api h1[role='heading']").text(loginForm.title);
       }
- $(".intro").remove();
+
       const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
       if (emailElement) {
         $("#api label[for='email']").text(emailElement.placeholder);
