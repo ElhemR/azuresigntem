@@ -172,7 +172,7 @@ $(document).ready(function () {
         document.title = props.pageTitle;
         $(".welcome-message").text(props.pageTitle);
       }
-
+      $(".intro").remove();
       if (loginForm.title) {
         $("#api h1[role='heading']").text(loginForm.title);
       }
