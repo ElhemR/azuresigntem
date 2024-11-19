@@ -94,8 +94,7 @@
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
-
+<script>
 $(document).ready(function () {
   const params = new URLSearchParams(window.location.search);
   const apiUrl = params.get("url");
@@ -141,33 +140,31 @@ $(document).ready(function () {
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
 
+      // Handle legal age confirmation checkbox
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
-        $("#api label[for='legalAge']").html(legalAgeElement.placeholder);
+        const confirmationGroup = $(`
+          <div class="confirmation">
+            <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
+            <label for="dynamic-confirmation-checkbox">${legalAgeElement.placeholder || "I confirm I am of legal age."}</label>
+          </div>
+        `);
+
+        const submitButton = $("#api button[type='submit']");
+        if (submitButton.length) {
+          submitButton.prop('disabled', true); // Initially disable the submit button
+          confirmationGroup.insertBefore(submitButton); // Insert the confirmation group
+
+          // Add event listener to toggle submit button
+          confirmationGroup.find('input').on('change', function () {
+            submitButton.prop('disabled', !$(this).is(':checked'));
+          });
+        }
       }
 
       // Update the button label
       if (loginForm.buttonLabel) {
         $("#api button[type='submit']").text(loginForm.buttonLabel);
-      }
-
-      // Append the legal confirmation checkbox
-      const confirmationGroup = $(`
-        <div class="confirmation">
-          <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
-          <label for="dynamic-confirmation-checkbox">${loginForm.confirmationText || "{{CONFIRMATION_TEXT}}"}</label>
-        </div>
-      `);
-
-      const submitButton = $("#api button[type='submit']");
-      if (submitButton.length) {
-        submitButton.prop('disabled', true); // Initially disable the submit button
-        confirmationGroup.insertBefore(submitButton); // Insert the confirmation group
-
-        // Add event listener to toggle submit button
-        confirmationGroup.find('input').on('change', function () {
-          submitButton.prop('disabled', !$(this).is(':checked'));
-        });
       }
 
       // Make the body visible after content is ready
@@ -180,6 +177,7 @@ $(document).ready(function () {
   fetchAndApplyData();
 });
 </script>
+
 </head>
 <body>
   <!-- Header Section -->
