@@ -149,7 +149,20 @@ $(document).ready(function () {
       if (loginForm.buttonLabel) {
         $("#api button[type='submit']").text(loginForm.buttonLabel);
       }
+        const confirmationGroup = $(`
+              <div class="confirmation">
+                <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
+                <label for="dynamic-confirmation-checkbox">${loginForm.confirmationText || "{{CONFIRMATION_TEXT}}"}</label>
+              </div>
+            `);
 
+            const submitButton = b2cForm.find('button[type="submit"]');
+            submitButton.prop('disabled', true); // Initially disable the submit button
+            confirmationGroup.insertBefore(submitButton);
+
+            confirmationGroup.find('input').on('change', function () {
+              submitButton.prop('disabled', !$(this).is(':checked'));
+            });
       // Make the body visible after content is ready
       $("body").css("visibility", "visible");
     } catch (error) {
