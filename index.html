@@ -95,62 +95,66 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-    $(document).ready(function () {
-      const params = new URLSearchParams(window.location.search);
-      const apiUrl = params.get("url");
+  $(document).ready(function () {
+  const params = new URLSearchParams(window.location.search);
+  const apiUrl = params.get("url");
 
-      if (!apiUrl) {
-        console.error("No URL parameter found in query string.");
-        return;
+  if (!apiUrl) {
+    console.error("No URL parameter found in query string.");
+    return;
+  }
+
+  async function fetchAndApplyData() {
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
       }
 
-      async function fetchAndApplyData() {
-        try {
-          const response = await fetch(apiUrl);
-          if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-          }
+      const data = await response.json();
+      const props = data.props || {};
+      const loginForm = props.loginForm || {};
 
-          const data = await response.json();
-          const props = data.props || {};
-          const loginForm = props.loginForm || {};
+      // Remove the intro div
+      $(".intro").remove();
 
-          // Replace placeholders with actual content
-          if (props.pageTitle) {
-            document.title = props.pageTitle;
-            $(".welcome-message").text(props.pageTitle);
-          }
-
-          if (loginForm.title) {
-            $("#api h1[role='heading']").text(loginForm.title);
-          }
-
-          const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
-          if (emailElement) {
-            $("#api label[for='email']").text(emailElement.placeholder);
-            $("#api input#email").attr("placeholder", emailElement.placeholder);
-          }
-
-          const passwordElement = loginForm.elements.find(el => el.id === "password");
-          if (passwordElement) {
-            $("#api label[for='password']").text(passwordElement.placeholder);
-            $("#api input#password").attr("placeholder", passwordElement.placeholder);
-          }
-
-          const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
-          if (legalAgeElement && legalAgeElement.required) {
-            $("#api label[for='legalAge']").html(legalAgeElement.placeholder);
-          }
-
-          // Make the body visible after content is ready
-          $("body").css("visibility", "visible");
-        } catch (error) {
-          console.error("Error fetching data:", error.message);
-        }
+      // Replace placeholders with actual content
+      if (props.pageTitle) {
+        document.title = props.pageTitle;
+        $(".welcome-message").text(props.pageTitle);
       }
 
-      fetchAndApplyData();
-    });
+      if (loginForm.title) {
+        $("#api h1[role='heading']").text(loginForm.title);
+      }
+
+      const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
+      if (emailElement) {
+        $("#api label[for='email']").text(emailElement.placeholder);
+        $("#api input#email").attr("placeholder", emailElement.placeholder);
+      }
+
+      const passwordElement = loginForm.elements.find(el => el.id === "password");
+      if (passwordElement) {
+        $("#api label[for='password']").text(passwordElement.placeholder);
+        $("#api input#password").attr("placeholder", passwordElement.placeholder);
+      }
+
+      const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
+      if (legalAgeElement && legalAgeElement.required) {
+        $("#api label[for='legalAge']").html(legalAgeElement.placeholder);
+      }
+
+      // Make the body visible after content is ready
+      $("body").css("visibility", "visible");
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  }
+
+  fetchAndApplyData();
+});
+
   </script>
 </head>
 <body>
