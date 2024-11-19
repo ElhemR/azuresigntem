@@ -245,7 +245,8 @@ $(document).ready(function () {
         $("#api label[for='password']").text(passwordElement.placeholder);
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
-
+        const submitButtons = $("#api button[type='submit']");
+        submitButtons.prop("class", '.submit-btn'); 
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
