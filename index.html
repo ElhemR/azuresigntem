@@ -21,6 +21,7 @@
       background-position: center center;
       visibility: hidden; /* Hide page initially */
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       background: linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%);
@@ -28,12 +29,15 @@
 
     .header-container {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       padding: 20px;
       background-color: #fff;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
 
     .header-container .logo {
@@ -66,12 +70,8 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .title {
-      font-size: 1.8rem;
-      color: #333;
-      margin-bottom: 15px;
+      text-align: center;
+      margin-top: 100px; /* To ensure it's below the header */
     }
 
     [role="heading"] {
@@ -199,10 +199,7 @@ $(document).ready(function () {
       const props = data.props || {};
       const loginForm = props.loginForm || {};
 
-      // Remove intro div
-      $(".intro").remove();
-
-      // Replace placeholders with actual content
+      // Replace placeholders
       if (props.pageTitle) {
         document.title = props.pageTitle;
         $(".welcome-message").text(props.pageTitle);
@@ -224,7 +221,6 @@ $(document).ready(function () {
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
 
-      // Add confirmation checkbox
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
@@ -235,7 +231,7 @@ $(document).ready(function () {
         `);
 
         const submitButton = $("#api button[type='submit']");
-        submitButton.prop("disabled", true); // Initially disable the button
+        submitButton.prop("disabled", true);
         confirmationGroup.insertBefore(submitButton);
 
         confirmationGroup.find("input").on("change", function () {
@@ -243,12 +239,10 @@ $(document).ready(function () {
         });
       }
 
-      // Update button label
       if (loginForm.buttonLabel) {
         $("#api button[type='submit']").text(loginForm.buttonLabel);
       }
 
-      // Make the body visible
       $("body").css("visibility", "visible");
     } catch (error) {
       console.error("Error fetching data:", error.message);
