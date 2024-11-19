@@ -70,71 +70,117 @@
       color: #333;
       margin-bottom: 15px;
     }
+
+    .confirmation {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .confirmation input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .confirmation label {
+      line-height: 1.2;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      color: #fff;
+      background: #333;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #555;
+    }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Print all query parameters
       const params = new URLSearchParams(window.location.search);
-      console.log("Query Parameters:");
-      params.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
+      const apiUrl = params.get("url");
 
-      // Extract the `url` parameter
-      const url = params.get("url");
-      if (!url) {
+      if (!apiUrl) {
         console.error("No URL parameter found in query string.");
         return;
       }
 
-      console.log(`Fetching data from: ${url}`);
-
-      // Fetch data from the given URL
-      async function fetchData() {
+      async function fetchAndApplyData() {
         try {
-          const response = await fetch(url);
+          const response = await fetch(apiUrl);
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
 
-          const json = await response.json();
-          console.log("Fetched JSON:", json);
+          const data = await response.json();
+          const props = data.props || {};
+          const loginForm = props.loginForm || {};
 
-          // Dynamically update the UI based on JSON values
-          if (json.LOGIN_HEADING_LABEL) {
-            $('#api h1[role="heading"]').text(json.LOGIN_HEADING_LABEL);
+          // Set welcome message
+          if (props.pageTitle) {
+            $(".welcome-message").text(props.pageTitle);
           }
 
-          if (json.EMAIL_LABEL) {
-            $('#api label[for="email"]').text(json.EMAIL_LABEL);
-            $('#api input#email').attr('placeholder', json.EMAIL_LABEL);
+          // Update login form labels and placeholders
+          if (loginForm.title) {
+            $('#api h1[role="heading"]').text(loginForm.title);
           }
 
-          if (json.PASSWORD_LABEL) {
-            $('#api label[for="password"]').text(json.PASSWORD_LABEL);
-            $('#api input#password').attr('placeholder', json.PASSWORD_LABEL);
+          const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
+          if (emailElement) {
+            $('#api label[for="email"]').text(emailElement.placeholder);
+            $('#api input#email').attr("placeholder", emailElement.placeholder);
+          }
+
+          const passwordElement = loginForm.elements.find(el => el.id === "password");
+          if (passwordElement) {
+            $('#api label[for="password"]').text(passwordElement.placeholder);
+            $('#api input#password').attr("placeholder", passwordElement.placeholder);
+          }
+
+          const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
+          if (legalAgeElement && legalAgeElement.required) {
+            const confirmationText = legalAgeElement.placeholder || "I confirm I am of legal age.";
+            const confirmationGroup = $(`
+              <div class="confirmation">
+                <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
+                <label for="dynamic-confirmation-checkbox">${confirmationText}</label>
+              </div>
+            `);
+
+            const submitButton = $('#api button[type="submit"]');
+            submitButton.prop('disabled', true);
+            confirmationGroup.insertBefore(submitButton);
+
+            confirmationGroup.find('input').on('change', function () {
+              submitButton.prop('disabled', !$(this).is(':checked'));
+            });
           }
         } catch (error) {
           console.error("Error fetching data:", error.message);
         }
       }
 
-      // Call the async function
-      fetchData();
-
-      // Set the background dynamically
-      const backgroundLoginImage = false; // Placeholder for the image URL
-      const gradientBackground = `linear-gradient(145deg, 
-            rgba(207, 174, 168, 0.3) 16%, 
-            rgba(139, 188, 188, 0.3) 45%, 
-            rgba(100, 193, 195, 0.3) 60%, 
-            rgba(73, 184, 161, 0.3) 80%, 
-            rgba(80, 178, 104, 0.3) 98%)`;
-
-      $('body').css('background', backgroundLoginImage
-        ? `url(${backgroundLoginImage}) no-repeat center/cover`
-        : gradientBackground);
+      fetchAndApplyData();
     });
   </script>
 </head>
