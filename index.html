@@ -19,6 +19,17 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;
+      visibility: hidden; /* Initially hidden */
+    }
+
+    .loading {
+      visibility: visible;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #333;
     }
 
     .header-container {
@@ -121,9 +132,10 @@
 
       if (!apiUrl) {
         console.error("No URL parameter found in query string.");
+        $('.loading').text("Error: No URL provided.");
         return;
       }
-    console.log('test', apiUrl)
+
       async function fetchAndApplyData() {
         try {
           const response = await fetch(apiUrl);
@@ -142,19 +154,23 @@
 
           // Update login form labels and placeholders
           if (loginForm.title) {
-            $('#api h1[role="heading"]').text(loginForm.title);
+            $('.title').text(loginForm.title);
           }
 
           const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
           if (emailElement) {
-            $('#api label[for="email"]').text(emailElement.placeholder);
-            $('#api input#email').attr("placeholder", emailElement.placeholder);
+            $('#api').append(`
+              <label for="email">${emailElement.placeholder}</label>
+              <input type="email" id="email" placeholder="${emailElement.placeholder}">
+            `);
           }
 
           const passwordElement = loginForm.elements.find(el => el.id === "password");
           if (passwordElement) {
-            $('#api label[for="password"]').text(passwordElement.placeholder);
-            $('#api input#password').attr("placeholder", passwordElement.placeholder);
+            $('#api').append(`
+              <label for="password">${passwordElement.placeholder}</label>
+              <input type="password" id="password" placeholder="${passwordElement.placeholder}">
+            `);
           }
 
           const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
@@ -167,16 +183,25 @@
               </div>
             `);
 
-            const submitButton = $('#api button[type="submit"]');
-            submitButton.prop('disabled', true);
+            const submitButton = $(`
+              <button type="submit" class="submit-btn" disabled>${loginForm.buttonLabel || "Submit"}</button>
+            `);
+
             confirmationGroup.insertBefore(submitButton);
 
             confirmationGroup.find('input').on('change', function () {
               submitButton.prop('disabled', !$(this).is(':checked'));
             });
+
+            $('#api').append(confirmationGroup, submitButton);
           }
+
+          // Show the body content once everything is ready
+          $('body').css('visibility', 'visible');
+          $('.loading').hide();
         } catch (error) {
           console.error("Error fetching data:", error.message);
+          $('.loading').text("Failed to load data.");
         }
       }
 
@@ -185,6 +210,9 @@
   </script>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loading">Loading...</div>
+
   <!-- Header Section -->
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
