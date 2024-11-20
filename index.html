@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <title>{{PAGE_TITLE}}</title>
   <style>
     :root {
@@ -301,17 +303,19 @@ passwordField.wrap('<div class="password-wrapper" style="position: relative;"></
     passwordLabel.text(passwordLabelText);
 
     // Create the toggle icon
-    const toggleIcon = $('<span class="toggle-icon">👁️</span>');
+  const toggleIcon = $('<span class="material-icons toggle-icon">visibility</span>'); 
+
 
     // Append the toggle icon inside the label
  passwordField.parent('.password-wrapper').append(toggleIcon);
 
     // Add click event to toggle password visibility
-    toggleIcon.on("click", function () {
-      const type = passwordField.attr("type") === "password" ? "text" : "password";
-      passwordField.attr("type", type);
-      $(this).text(type === "password" ? "👁️" : "🙈");
-    });
+toggleIcon.on("click", function () {
+  const type = passwordField.attr("type") === "password" ? "text" : "password";
+  passwordField.attr("type", type);
+  $(this).text(type === "password" ? "visibility" : "visibility_off"); // Toggle text
+});
+
   }
       }
 
