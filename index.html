@@ -241,6 +241,7 @@ $(document).ready(function () {
       }
 
       const data = await response.json();
+      console.log('data', data);
       const props = data.props || {};
       const loginForm = props.loginForm || {};
       const generalSettings = data.appFrame?.settings?.general || {};
