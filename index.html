@@ -289,8 +289,9 @@ $(document).ready(function () {
   
             const passwordElement = loginForm.elements.find(el => el.id === "password");
       if (passwordElement) {
-        const passwordField = $("#api #password"); // Find the password field dynamically
-        if (passwordField.length) {
+        const passwordField =    $("#api input#password")// Find the password field dynamically
+        console.log('pwd', passwordField)
+
              const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
         $("#api label[for='password']").text(passwordLabelText);
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
@@ -304,7 +305,7 @@ $(document).ready(function () {
             passwordField.attr("type", type);
             $(this).text(type === "password" ? "👁️" : "🙈");
           });
-        }
+     
       }
       
       const submitButtons = $("#api button[type='submit']");
