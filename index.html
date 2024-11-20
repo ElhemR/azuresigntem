@@ -244,11 +244,14 @@ $(document).ready(function () {
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
-          <div class="confirmation">
-            <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
-            <label for="dynamic-confirmation-checkbox">${legalAgeElement.placeholder}</label>
-          </div>
-        `);
+        <div class="confirmation">
+          <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
+          <label for="dynamic-confirmation-checkbox">
+            ${legalAgeElement.placeholder}${legalAgeElement.required ? " *" : ""}
+          </label>
+        </div>
+      `);
+
 
         const submitButton = $("#api button[type='submit']");
         submitButton.prop("disabled", true);
