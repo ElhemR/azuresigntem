@@ -364,6 +364,7 @@ toggleIcon.on("click", function () {
   }
       }
    const errorDiv = $(".error.pageLevel");
+        errorDiv.removeAttr("style");
   if (errorDiv.length) {
     // Create the close icon dynamically
     const closeIcon = $('<span class="close-icon material-icons">close</span>');
