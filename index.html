@@ -185,6 +185,41 @@
     .error {
       color:  #DE2E21;
     }
+    .spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
+  visibility: visible; /* Show spinner initially */
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.show-content .spinner-container {
+  visibility: hidden; /* Hide spinner when content is ready */
+}
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
@@ -227,8 +262,8 @@ $(document).ready(function () {
         $("#api h1[role='heading']").text(loginForm.title);
       }
 
-     const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
-    if (emailElement) {
+      const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
+      if (emailElement) {
         const emailLabelText = emailElement.placeholder + (emailElement.required ? " *" : "");
         $("#api label[for='email']").text(emailLabelText);
         $("#api input#email").attr("placeholder", emailElement.placeholder);
@@ -240,7 +275,6 @@ $(document).ready(function () {
         $("#api label[for='password']").text(passwordLabelText);
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
-
 
       const submitButtons = $("#api button[type='submit']");
       submitButtons.prop("class", "submit-btn");
@@ -254,7 +288,6 @@ $(document).ready(function () {
           </label>
         </div>
       `);
-
 
         const submitButton = $("#api button[type='submit']");
         submitButton.prop("disabled", true);
@@ -303,6 +336,10 @@ $(document).ready(function () {
   </script>
 </head>
 <body>
+<body>
+  <div class="spinner-container">
+    <div class="spinner"></div>
+  </div>
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
   </div>
@@ -313,6 +350,6 @@ $(document).ready(function () {
         <!-- Form content dynamically injected here -->
       </div>
     </div>
-</div>
+  </div>
 </body>
 </html>
