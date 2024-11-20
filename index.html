@@ -182,8 +182,9 @@ $(document).ready(function () {
   const params = new URLSearchParams(window.location.search);
   const apiUrl = params.get("url");
 
+  // Return early if no URL parameter is found
   if (!apiUrl) {
-    console.error("No URL parameter found in query string.");
+    $("body").css("visibility", "visible");
     return;
   }
 
@@ -227,8 +228,8 @@ $(document).ready(function () {
         $("#api label[for='password']").text(passwordElement.placeholder);
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
-        const submitButtons = $("#api button[type='submit']");
-        submitButtons.prop("class", 'submit-btn'); 
+      const submitButtons = $("#api button[type='submit']");
+      submitButtons.prop("class", 'submit-btn'); 
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
@@ -259,6 +260,7 @@ $(document).ready(function () {
 
   fetchAndApplyData();
 });
+
   </script>
 </head>
 <body>
