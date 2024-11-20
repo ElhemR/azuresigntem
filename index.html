@@ -9,10 +9,10 @@
       --radius-button: 4px; 
       --accent-color: #009089; 
       --grey500: #272A3C; 
-    --grey400: #bdbdbd;
-    --grey200: #eeeeee;
-    --accent400: #009089;
-    --accent200: #009089;
+      --grey400: #bdbdbd;
+      --grey200: #eeeeee;
+      --accent400: #009089;
+      --accent200: #009089;
     }
 
     /* General Reset */
@@ -22,40 +22,40 @@
       box-sizing: border-box;
     }
 
-  body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-   visibility: hidden; 
-}
-.show-content {
-  visibility: visible; 
-}
-.header-container {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 1;
-}
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      visibility: hidden; 
+    }
+    .show-content {
+      visibility: visible; 
+    }
 
-.main-container {
-  flex: 1; /* Occupy all available space below the header */
-  width: 100%; /* Full width of the body */
-  background: linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Ensure stacking context */
-}
+    .header-container {
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
 
+    .main-container {
+      flex: 1;
+      width: 100%;
+      background: linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
 
     .header-container .logo {
       max-height: 50px;
@@ -94,18 +94,6 @@
       margin-bottom: 12px;
     }
 
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 5px;
-      color: #272a3c;
-    }
-
     input {
       width: 100%;
       padding: 8px 0;
@@ -114,7 +102,6 @@
       color: var(--grey500);
       border: none;
       border-bottom: 2px solid var(--grey500);
-    
       outline: none;
       background: transparent;
     }
@@ -127,99 +114,61 @@
       border-bottom-color: var(--accent-color);
     }
 
-
-    .entry-item {
-      text-align:left;
-      margin-bottom: 1.5rem;
-    }
-     #next {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--grey500);
-    background-color: transparent;
-    border: 1px solid var(--grey500);
-    border-radius: var(--radius-button);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: none;
-    box-shadow: none;
-    margin-top: 1rem;
-  }
-
-  /* Hover state */
-   #next:hover {
-    background-color: transparent;
-    text-decoration: none;
-    box-shadow: 0 0 0 1px var(--grey500);
-  }
-
-  /* Focus state */
-   #next:focus {
-    background-color: transparent;
-    text-decoration: none;
-    box-shadow: 0 0 0 1px var(--grey500);
-  }
-
-  /* Active state */
-   #next:active {
-    background-color: rgba(158, 158, 158, 0.1); /* Faded grey500 */
-    color: var(--grey500);
-  }
-
-  /* Disabled state */
-   #next:disabled {
-    border: 1px solid var(--grey400);
-    color: var(--grey400);
-    cursor: not-allowed;
-  }
-     input[type="checkbox"] {
-       height: 2rem;
-       width: 2rem;
-     }
-    .confirmation {
+    .password-wrapper {
+      position: relative;
       display: flex;
+      align-items: center;
     }
-    .error {
-      color:  #DE2E21;
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--grey500);
+      user-select: none;
+      z-index: 2;
     }
+
+    .toggle-password:hover {
+      color: var(--accent-color);
+    }
+
     .spinner-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 9999;
-  visibility: visible; /* Show spinner initially */
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      visibility: visible; 
+    }
 
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-top: 4px solid var(--accent-color);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-top: 4px solid var(--accent-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-.show-content .spinner-container {
-  visibility: hidden; /* Hide spinner when content is ready */
-}
+    .show-content .spinner-container {
+      visibility: hidden; 
+    }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
@@ -231,7 +180,7 @@ $(document).ready(function () {
   async function fetchAndApplyData() {
     try {
       if (!apiUrl) {
-        $("body").addClass("show-content"); // Show content if no URL
+        $("body").addClass("show-content"); 
         return;
       }
 
@@ -245,97 +194,52 @@ $(document).ready(function () {
       const loginForm = props.loginForm || {};
       const generalSettings = data.appFrame?.settings?.general || {};
 
-      // Set border radius based on corners property
       if (generalSettings.corners === "edgy") {
         document.documentElement.style.setProperty("--radius-button", "0");
       } else {
         document.documentElement.style.setProperty("--radius-button", "4px");
       }
 
-      // Replace placeholders
       if (props.pageTitle) {
         document.title = props.pageTitle;
         $(".welcome-message").text(props.pageTitle);
       }
-      $(".intro").remove();
+
       if (loginForm.title) {
-        $("#api h1[role='heading']").text(loginForm.title);
+        $("#api").prepend(`<h1 role="heading">${loginForm.title}</h1>`);
       }
 
-      const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
-      if (emailElement) {
-        const emailLabelText = emailElement.placeholder + (emailElement.required ? " *" : "");
-        $("#api label[for='email']").text(emailLabelText);
-        $("#api input#email").attr("placeholder", emailElement.placeholder);
-      }
-      
       const passwordElement = loginForm.elements.find(el => el.id === "password");
       if (passwordElement) {
-        const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
-        $("#api label[for='password']").text(passwordLabelText);
-        $("#api input#password").attr("placeholder", passwordElement.placeholder);
-      }
+        $("#api").append(`
+          <div class="form-group">
+            <label for="password">${passwordElement.placeholder}${passwordElement.required ? " *" : ""}</label>
+            <div class="password-wrapper">
+              <input type="password" id="password" placeholder="${passwordElement.placeholder}">
+              <span class="toggle-password">👁️</span>
+            </div>
+          </div>
+        `);
 
-      const submitButtons = $("#api button[type='submit']");
-      submitButtons.prop("class", "submit-btn");
-      const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
-      if (legalAgeElement && legalAgeElement.required) {
-        const confirmationGroup = $(`
-        <div class="confirmation">
-          <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
-          <label for="dynamic-confirmation-checkbox">
-            ${legalAgeElement.placeholder}${legalAgeElement.required ? " *" : ""}
-          </label>
-        </div>
-      `);
-
-        const submitButton = $("#api button[type='submit']");
-        submitButton.prop("disabled", true);
-        confirmationGroup.insertBefore(submitButton);
-
-        confirmationGroup.find("input").on("change", function () {
-          submitButton.prop("disabled", !$(this).is(":checked"));
+        $(".toggle-password").on("click", function () {
+          const field = $("#password");
+          const fieldType = field.attr("type") === "password" ? "text" : "password";
+          field.attr("type", fieldType);
+          $(this).text(fieldType === "password" ? "👁️" : "🙈");
         });
       }
 
-      if (loginForm.buttonLabel) {
-        $("#api button[type='submit']").text(loginForm.buttonLabel);
-      }
-
-      // Update main container background if backgroundLoginImage is defined
-      const mainContainer = $(".main-container");
-      if (generalSettings.backgroundLoginImage) {
-        const backgroundLoginImage = `${baseUrl}${generalSettings.backgroundLoginImage?.path}`;
-        mainContainer.css("background-image", `url('${backgroundLoginImage}')`);
-      } else {
-        mainContainer.css(
-          "background",
-          "linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%)"
-        );
-      }
-
-      // Update logo image if platformIcon is defined
-      const logoElement = $(".header-container .logo");
-      if (generalSettings.platformIcon) {
-        const platformIcon = `${baseUrl}${generalSettings.platformIcon?.path}`;
-        logoElement.attr("src", platformIcon);
-      }
-
-      // Show the page content only after all updates
       $("body").addClass("show-content");
     } catch (error) {
       console.error("Error fetching data:", error.message);
-      // Show the content even if there’s an error
       $("body").addClass("show-content");
     }
   }
 
   fetchAndApplyData();
 });
-
   </script>
 </head>
-<body>
 <body>
   <div class="spinner-container">
     <div class="spinner"></div>
