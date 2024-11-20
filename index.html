@@ -3,20 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
   <title>{{PAGE_TITLE}}</title>
   <style>
-    :root {
-      --radius-button: 4px; 
-      --accent-color: #009089; 
-      --grey500: #272A3C; 
-    --grey400: #bdbdbd;
-    --grey200: #eeeeee;
-    --accent400: #009089;
-    --accent200: #009089;
-    }
-
     /* General Reset */
     * {
       margin: 0;
@@ -24,40 +12,24 @@
       box-sizing: border-box;
     }
 
-  body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-   visibility: hidden; 
-}
-.show-content {
-  visibility: visible; 
-}
-.header-container {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 1;
-}
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
 
-.main-container {
-  flex: 1; /* Occupy all available space below the header */
-  width: 100%; /* Full width of the body */
-  background: linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* Ensure stacking context */
-}
-
+    .header-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
     .header-container .logo {
       max-height: 50px;
@@ -71,398 +43,201 @@
       text-transform: uppercase;
       word-break: break-word;
       text-align: center;
-      max-width: 640px;
       margin: 20px 0;
     }
 
     .container {
       width: 100%;
-      max-width: 400px;
-      background: #fff;
+      max-width: 640px;
+      margin: 20px auto;
       padding: 20px;
-      border-radius: var(--radius-button);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       text-align: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    [role="heading"] {
-      color: #272a3c;
-      font-size: 1.25rem;
-      word-break: break-word;
-      font-family: Roboto, sans-serif;
-      font-weight: bold;
-      line-height: 1.4;
-      letter-spacing: 0.313rem;
-      margin-bottom: 12px;
+    .password-toggle {
+      position: relative;
     }
 
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
+    .password-toggle input {
+      padding-right: 40px;
     }
 
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 5px;
-      color: #272a3c;
+    .password-toggle .toggle-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1rem;
+      color: #333;
     }
 
-    input {
-      width: 100%;
-      padding: 8px 0;
-      font-size: 1.0625rem;
-      letter-spacing: 0.2px;
-      color: var(--grey500);
-      border: none;
-      border-bottom: 2px solid var(--grey500);
-    
-      outline: none;
-      background: transparent;
-    }
-
-    input:focus {
-      border-bottom-color: var(--accent-color) !important;
-    }
-
-    input:hover:not(:disabled):not(:focus) {
-      border-bottom-color: var(--accent-color);
-    }
-
-
-    .entry-item {
-      text-align:left;
-      margin-bottom: 1.5rem;
-    }
-     #next {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: var(--grey500);
-    background-color: transparent;
-    border: 1px solid var(--grey500);
-    border-radius: var(--radius-button);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    outline: none;
-    box-shadow: none;
-    margin-top: 1rem;
-  }
-.password-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.password-wrapper input {
-  padding-right: 40px; /* Space for the toggle icon */
-}
-
-.password-wrapper .toggle-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: var(--grey500);
-}
-
-  /* Hover state */
-   #next:hover {
-    background-color: transparent;
-    text-decoration: none;
-    box-shadow: 0 0 0 1px var(--grey500);
-  }
-
-  /* Focus state */
-   #next:focus {
-    background-color: transparent;
-    text-decoration: none;
-    box-shadow: 0 0 0 1px var(--grey500);
-  }
-
-  /* Active state */
-   #next:active {
-    background-color: rgba(158, 158, 158, 0.1); /* Faded grey500 */
-    color: var(--grey500);
-  }
-
-  /* Disabled state */
-   #next:disabled {
-    border: 1px solid var(--grey400);
-    color: var(--grey400);
-    cursor: not-allowed;
-  }
-     input[type="checkbox"] {
-       height: 2rem;
-       width: 2rem;
-     }
     .confirmation {
-      display: flex;
+    display: grid;
+     grid-auto-flow: column;
+     grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+     gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #333;
     }
 
-    .spinner-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 9999;
-  visibility: visible; /* Show spinner initially */
-}
+    .confirmation input[type="checkbox"] {
+      margin-right: 10px;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+    }
 
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-top: 4px solid var(--accent-color);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
+    .confirmation label {
+      line-height: 1.2;
+    }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+    .submit-btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      color: #fff;
+      background: #333;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
 
-.show-content .spinner-container {
-  visibility: hidden; /* Hide spinner when content is ready */
-}
-   .error.pageLevel {
-  position: fixed; /* Fixed position at the bottom of the page */
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #DE2E21; /* Red background */
-  color: white;
-  padding: 16px 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  font-size: 1rem;
-  max-width: 90%; /* Responsive width */
-  text-align: left; /* Align text to the left */
-  display: none; /* Use flexbox for alignment */
-  align-items: center; /* Vertically align items */
-  justify-content: space-between; /* Space between text and icon */
-       animation: fadeInOut 4s ease-in-out; 
-}
-
-.error.pageLevel p {
-  margin: 0; /* Remove default margin from p */
-  flex: 1; /* Allow the text to take up remaining space */
-}
-
-.error.pageLevel .close-icon {
-  font-size: 1.5rem; /* Adjust icon size */
-  color: white; /* Icon color */
-  margin-left: 16px; /* Space between text and icon */
-  flex-shrink: 0; /* Prevent the icon from shrinking */
-  cursor: pointer; /* Make it look interactive (optional) */
-}
-
-
-/* Fade-in and fade-out animation */
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-  10%, 90% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
-}
-    .error.itemLevel {
-      color: #DE2E21;
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
     }
   </style>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
-$(document).ready(function () {
-  const baseUrl = "https://www.dev.jti-connexus.com/";
-  const params = new URLSearchParams(window.location.search);
-  const apiUrl = params.get("url");
+  <script defer>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Parse query parameters
+      const params = new URLSearchParams(window.location.search);
+      console.log("Query Parameters:");
+      params.forEach((value, key) => console.log(`${key}: ${value}`));
 
-  async function fetchAndApplyData() {
-    try {
-      if (!apiUrl) {
-        $("body").addClass("show-content"); // Show content if no URL
+      const url = params.get("url");
+      if (!url) {
+        console.error("No URL parameter found in query string.");
         return;
       }
 
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
+      console.log(`Fetching data from: ${url}`);
 
-      const data = await response.json();
-      console.log('data', data);
-      const props = data.props || {};
-      const loginForm = props.loginForm || {};
-      const generalSettings = data.appFrame?.settings?.general || {};
+      // Fetch data from URL
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched JSON:", data);
 
-      // Set border radius based on corners property
-      if (generalSettings.corners === "edgy") {
-        document.documentElement.style.setProperty("--radius-button", "0");
-      } else {
-        document.documentElement.style.setProperty("--radius-button", "4px");
-      }
-
-      // Replace placeholders
-      if (props.pageTitle) {
-        document.title = props.pageTitle;
-        $(".welcome-message").text(props.pageTitle);
-      }
-      $(".intro").remove();
-      if (loginForm.title) {
-        $("#api h1[role='heading']").text(loginForm.title);
-      }
-
-      const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
-      if (emailElement) {
-        const emailLabelText = emailElement.placeholder + (emailElement.required ? " *" : "");
-        $("#api label[for='email']").text(emailLabelText);
-        $("#api input#email").attr("placeholder", emailElement.placeholder);
-      }
-      
-      const passwordElement = loginForm.elements.find(el => el.id === "password");
-      if (passwordElement) {
-const passwordField = $("#api #password"); // Find the password field dynamically
-  const passwordLabel = $("#api label[for='password']"); // Find the label dynamically
-passwordField.wrap('<div class="password-wrapper" style="position: relative;"></div>');
-
-  if (passwordField.length && passwordLabel.length) {
-    // Update the label text with required indication
-    const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
-    passwordLabel.text(passwordLabelText);
-
-    // Create the toggle icon
-  const toggleIcon = $('<span class="material-icons toggle-icon">visibility</span>'); 
-
-
-    // Append the toggle icon inside the label
- passwordField.parent('.password-wrapper').append(toggleIcon);
-
-    // Add click event to toggle password visibility
-toggleIcon.on("click", function () {
-  const type = passwordField.attr("type") === "password" ? "text" : "password";
-  passwordField.attr("type", type);
-  $(this).text(type === "password" ? "visibility" : "visibility_off"); // Toggle text
-});
-
-  }
-      }
-   const errorDiv = $(".error.pageLevel");
-        errorDiv.removeAttr("style");
-  if (errorDiv.length) {
-    // Create the close icon dynamically
-   const contentWrapper = $('<div class="content-wrapper" style="display: flex; align-items: center; justify-content: space-between;"></div>');
-
-  // Move the existing <p> into the new wrapper
-  const errorMessage = errorDiv.find("p"); // Find the <p> inside errorDiv
-  contentWrapper.append(errorMessage); // Move the <p> into the wrapper
-
-  // Create the close icon dynamically
-  const closeIcon = $('<span class="close-icon material-icons">close</span>');
-
-  // Append the close icon to the wrapper
-  contentWrapper.append(closeIcon);
-
-  // Append the wrapper back into the errorDiv
-  errorDiv.append(contentWrapper);
-
-  }
-      const submitButtons = $("#api button[type='submit']");
-      submitButtons.prop("class", "submit-btn");
-      const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
-      if (legalAgeElement && legalAgeElement.required) {
-        const confirmationGroup = $(`
-        <div class="confirmation">
-          <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
-          <label for="dynamic-confirmation-checkbox">
-            ${legalAgeElement.placeholder}${legalAgeElement.required ? " *" : ""}
-          </label>
-        </div>
-      `);
-
-        const submitButton = $("#api button[type='submit']");
-        submitButton.prop("disabled", true);
-        confirmationGroup.insertBefore(submitButton);
-
-        confirmationGroup.find("input").on("change", function () {
-          submitButton.prop("disabled", !$(this).is(":checked"));
+          // Example: Dynamically update the UI
+          if (data.message) {
+            const welcomeMessage = document.querySelector(".welcome-message");
+            if (welcomeMessage) {
+              welcomeMessage.textContent = data.message;
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error.message);
         });
-      }
 
-      if (loginForm.buttonLabel) {
-        $("#api button[type='submit']").text(loginForm.buttonLabel);
-      }
+      // Periodically check for the Azure AD B2C form to be injected
+      const checkForForm = setInterval(() => {
+        const b2cForm = document.querySelector("#api form");
 
-      // Update main container background if backgroundLoginImage is defined
-      const mainContainer = $(".main-container");
-      if (generalSettings.backgroundLoginImage) {
-        const backgroundLoginImage = `${baseUrl}${generalSettings.backgroundLoginImage?.path}`;
-        mainContainer.css("background-image", `url('${backgroundLoginImage}')`);
-      } else {
-        mainContainer.css(
-          "background",
-          "linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%)"
-        );
-      }
+        if (b2cForm) {
+          clearInterval(checkForForm);
 
-      // Update logo image if platformIcon is defined
-      const logoElement = $(".header-container .logo");
-      if (generalSettings.platformIcon) {
-        const platformIcon = `${baseUrl}${generalSettings.platformIcon?.path}`;
-        logoElement.attr("src", platformIcon);
-      }
+          // Dynamically update labels
+          const emailLabel = b2cForm.querySelector('label[for="email"]');
+          if (emailLabel) emailLabel.textContent = "{{EMAIL_LABEL}}";
 
-      // Show the page content only after all updates
-      $("body").addClass("show-content");
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      // Show the content even if there’s an error
-      $("body").addClass("show-content");
-    }
-  }
+          const passwordLabel = b2cForm.querySelector('label[for="password"]');
+          if (passwordLabel) passwordLabel.textContent = "{{PASSWORD_LABEL}}";
 
-  fetchAndApplyData();
-});
+          // Add a confirmation checkbox
+          const confirmationGroup = document.createElement("div");
+          confirmationGroup.className = "confirmation";
+          confirmationGroup.innerHTML = `
+            <input type="checkbox" id="dynamic-confirmation-checkbox" name="confirmation">
+            <label for="dynamic-confirmation-checkbox">{{CONFIRMATION_TEXT}}</label>
+          `;
 
+          const submitButton = b2cForm.querySelector('button[type="submit"]');
+          if (submitButton) {
+            submitButton.disabled = true;
+            b2cForm.insertBefore(confirmationGroup, submitButton);
+
+            const confirmationCheckbox = confirmationGroup.querySelector("input");
+            confirmationCheckbox.addEventListener("change", function () {
+              submitButton.disabled = !this.checked;
+            });
+          }
+
+          // Replace heading content
+          const heading = b2cForm.querySelector('h1[role="heading"]');
+          if (heading) {
+            heading.textContent = "{{LOGIN_HEADING_LABEL}}";
+          }
+
+          // Remove the intro div
+          const introDiv = b2cForm.querySelector(".intro");
+          if (introDiv) {
+            introDiv.remove();
+          }
+
+          // Add password toggle functionality
+          const passwordField = b2cForm.querySelector("#password");
+          if (passwordField) {
+            const toggleIcon = document.createElement("span");
+            toggleIcon.className = "toggle-icon";
+            toggleIcon.textContent = "👁️";
+            passwordField.parentNode.insertBefore(toggleIcon, passwordField.nextSibling);
+
+            toggleIcon.addEventListener("click", function () {
+              const type = passwordField.type === "password" ? "text" : "password";
+              passwordField.type = type;
+              toggleIcon.textContent = type === "password" ? "👁️" : "🙈";
+            });
+          }
+
+          console.log("B2C form enhanced with dynamic labels, heading, checkbox, and password toggle.");
+        } else {
+          console.log("Waiting for Azure AD B2C form to load...");
+        }
+      }, 500); // Check every 500ms
+    });
   </script>
 </head>
 <body>
-<body>
-  <div class="spinner-container">
-    <div class="spinner"></div>
-  </div>
+  <!-- Header Section -->
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
   </div>
-  <div class="main-container">  
-    <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
-    <div class="container">
-      <div id="api">
-        <!-- Form content dynamically injected here -->
-      </div>
-    </div>
+
+  <!-- Welcome Message -->
+  <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Title -->
+    <h1 class="title">{{HEADER_LABEL}}</h1>
+
+    <!-- Azure AD B2C Login Form Placeholder -->
+    <div id="api"></div>
   </div>
 </body>
 </html>
- 
