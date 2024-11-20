@@ -304,7 +304,7 @@ passwordField.wrap('<div class="password-wrapper" style="position: relative;"></
     const toggleIcon = $('<span class="toggle-icon">👁️</span>');
 
     // Append the toggle icon inside the label
-    passwordLabel.append(toggleIcon);
+ passwordField.parent('.password-wrapper').append(toggleIcon);
 
     // Add click event to toggle password visibility
     toggleIcon.on("click", function () {
