@@ -372,10 +372,20 @@ toggleIcon.on("click", function () {
         errorDiv.removeAttr("style");
   if (errorDiv.length) {
     // Create the close icon dynamically
-    const closeIcon = $('<span class="close-icon material-icons">close</span>');
+   const contentWrapper = $('<div class="content-wrapper" style="display: flex; align-items: center; justify-content: space-between;"></div>');
 
-    // Append the close icon to the error div
-    errorDiv.append(closeIcon);
+  // Move the existing <p> into the new wrapper
+  const errorMessage = errorDiv.find("p"); // Find the <p> inside errorDiv
+  contentWrapper.append(errorMessage); // Move the <p> into the wrapper
+
+  // Create the close icon dynamically
+  const closeIcon = $('<span class="close-icon material-icons">close</span>');
+
+  // Append the close icon to the wrapper
+  contentWrapper.append(closeIcon);
+
+  // Append the wrapper back into the errorDiv
+  errorDiv.append(contentWrapper);
 
   }
       const submitButtons = $("#api button[type='submit']");
