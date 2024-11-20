@@ -203,9 +203,7 @@
     .confirmation {
       display: flex;
     }
-    .error {
-      color:  #DE2E21;
-    }
+
     .spinner-container {
   position: fixed;
   top: 0;
@@ -241,6 +239,39 @@
 .show-content .spinner-container {
   visibility: hidden; /* Hide spinner when content is ready */
 }
+    .error.pageLevel {
+  position: fixed; /* Make it fixed at the bottom of the viewport */
+  bottom: 20px; /* Position it 20px from the bottom */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust for centering */
+  background-color: #DE2E21; /* Background color for error */
+  color: white; /* White text for readability */
+  padding: 16px 24px; /* Add padding for a better look */
+  border-radius: 8px; /* Rounded corners for the snackbar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
+  z-index: 1000; /* Ensure it appears above other elements */
+  font-size: 1rem; /* Adjust font size */
+  text-align: center; /* Center align the text */
+  display: none; /* Initially hidden */
+  animation: fadeInOut 4s ease-in-out; /* Optional fade-in/out animation */
+}
+
+/* Fade-in and fade-out animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+    
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
