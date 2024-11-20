@@ -200,7 +200,7 @@ $(document).ready(function () {
       const props = data.props || {};
       const loginForm = props.loginForm || {};
       const generalSettings = props.appFrame?.settings?.general || {};
-      console.log('test', generalSettings)
+      console.log('test', data.props)
       // Set border radius based on corners property
       if (generalSettings.corners === "edgy") {
         document.documentElement.style.setProperty("--radius-button", "0");
