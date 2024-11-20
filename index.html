@@ -200,7 +200,7 @@ $(document).ready(function () {
       const props = data.props || {};
       const loginForm = props.loginForm || {};
       const generalSettings = props.appFrame?.settings?.general || {};
-
+      console.log('test', generalSettings)
       // Set border radius based on corners property
       if (generalSettings.corners === "edgy") {
         document.documentElement.style.setProperty("--radius-button", "0");
@@ -287,14 +287,13 @@ $(document).ready(function () {
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
   </div>
-  <div class="main-container>  
-  <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
-
-  <div class="container">
-    <div id="api">
-      <!-- Form content dynamically injected here -->
+  <div class="main-container">  
+    <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
+    <div class="container">
+      <div id="api">
+        <!-- Form content dynamically injected here -->
+      </div>
     </div>
-  </div>
 </div>
 </body>
 </html>
