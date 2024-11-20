@@ -239,34 +239,39 @@
 .show-content .spinner-container {
   visibility: hidden; /* Hide spinner when content is ready */
 }
-   
-.error.pageLevel {
-  position: fixed;
+   .error.pageLevel {
+  position: fixed; /* Fixed position at the bottom of the page */
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #DE2E21;
+  background-color: #DE2E21; /* Red background */
   color: white;
   padding: 16px 24px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   font-size: 1rem;
-  display: flex; /* Flexbox layout */
-  align-items: center; /* Center content vertically */
-  justify-content: space-between; /* Space between icon and text */
   max-width: 90%; /* Responsive width */
   text-align: left; /* Align text to the left */
-    display: none; 
-   animation: fadeInOut 4s ease-in-out; 
+  display: none; /* Use flexbox for alignment */
+  align-items: center; /* Vertically align items */
+  justify-content: space-between; /* Space between text and icon */
+       animation: fadeInOut 4s ease-in-out; 
+}
+
+.error.pageLevel p {
+  margin: 0; /* Remove default margin from p */
+  flex: 1; /* Allow the text to take up remaining space */
 }
 
 .error.pageLevel .close-icon {
-  font-size: 1.5rem; 
-  color: white;
-  margin-left: 16px;
-  flex-shrink: 0; 
+  font-size: 1.5rem; /* Adjust icon size */
+  color: white; /* Icon color */
+  margin-left: 16px; /* Space between text and icon */
+  flex-shrink: 0; /* Prevent the icon from shrinking */
+  cursor: pointer; /* Make it look interactive (optional) */
 }
+
 
 /* Fade-in and fade-out animation */
 @keyframes fadeInOut {
