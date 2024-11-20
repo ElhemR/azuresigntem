@@ -148,6 +148,25 @@
     box-shadow: none;
     margin-top: 1rem;
   }
+.password-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 40px; /* Space for the toggle icon */
+}
+
+.password-wrapper .toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--grey500);
+}
 
   /* Hover state */
    #next:hover {
@@ -274,6 +293,7 @@ $(document).ready(function () {
       if (passwordElement) {
 const passwordField = $("#api #password"); // Find the password field dynamically
   const passwordLabel = $("#api label[for='password']"); // Find the label dynamically
+passwordField.wrap('<div class="password-wrapper" style="position: relative;"></div>');
 
   if (passwordField.length && passwordLabel.length) {
     // Update the label text with required indication
