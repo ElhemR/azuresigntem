@@ -222,7 +222,6 @@
 }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script>
 $(document).ready(function () {
   const baseUrl = "https://www.dev.jti-connexus.com/";
   const params = new URLSearchParams(window.location.search);
@@ -272,12 +271,28 @@ $(document).ready(function () {
       const passwordElement = loginForm.elements.find(el => el.id === "password");
       if (passwordElement) {
         const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
-        $("#api label[for='password']").text(passwordLabelText);
-        $("#api input#password").attr("placeholder", passwordElement.placeholder);
+        $("#api").append(`
+          <div class="form-group">
+            <label for="password">${passwordLabelText}</label>
+            <div class="password-wrapper" style="position: relative; display: flex; align-items: center;">
+              <input type="password" id="password" placeholder="${passwordElement.placeholder}" style="flex: 1;">
+              <span class="toggle-password" style="position: absolute; right: 10px; cursor: pointer; font-size: 1.2rem; color: #272A3C; user-select: none;">👁️</span>
+            </div>
+          </div>
+        `);
+
+        // Add toggle password visibility functionality
+        $(".toggle-password").on("click", function () {
+          const passwordField = $("#password");
+          const fieldType = passwordField.attr("type") === "password" ? "text" : "password";
+          passwordField.attr("type", fieldType);
+          $(this).text(fieldType === "password" ? "👁️" : "🙈");
+        });
       }
 
       const submitButtons = $("#api button[type='submit']");
       submitButtons.prop("class", "submit-btn");
+
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
       if (legalAgeElement && legalAgeElement.required) {
         const confirmationGroup = $(`
@@ -332,7 +347,6 @@ $(document).ready(function () {
 
   fetchAndApplyData();
 });
-
   </script>
 </head>
 <body>
