@@ -224,17 +224,20 @@ $(document).ready(function () {
         $("#api h1[role='heading']").text(loginForm.title);
       }
 
-      const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
-      if (emailElement) {
-        $("#api label[for='email']").text(emailElement.placeholder);
+     const emailElement = loginForm.elements.find(el => el.id === "emailAddress");
+    if (emailElement) {
+        const emailLabelText = emailElement.placeholder + (emailElement.required ? " *" : "");
+        $("#api label[for='email']").text(emailLabelText);
         $("#api input#email").attr("placeholder", emailElement.placeholder);
       }
-
+      
       const passwordElement = loginForm.elements.find(el => el.id === "password");
       if (passwordElement) {
-        $("#api label[for='password']").text(passwordElement.placeholder);
+        const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
+        $("#api label[for='password']").text(passwordLabelText);
         $("#api input#password").attr("placeholder", passwordElement.placeholder);
       }
+
 
       const submitButtons = $("#api button[type='submit']");
       submitButtons.prop("class", "submit-btn");
