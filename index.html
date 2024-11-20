@@ -260,7 +260,7 @@ $(document).ready(function () {
       // Update main container background if backgroundLoginImage is defined
       const mainContainer = $(".main-container");
       if (generalSettings.backgroundLoginImage) {
-        const backgroundLoginImage = `${baseUrl}${generalSettings.backgroundLoginImage}`;
+        const backgroundLoginImage = `${baseUrl}${generalSettings.backgroundLoginImage?.path}`;
         mainContainer.css("background-image", `url('${backgroundLoginImage}')`);
       } else {
         mainContainer.css(
@@ -272,7 +272,7 @@ $(document).ready(function () {
       // Update logo image if platformIcon is defined
       const logoElement = $(".header-container .logo");
       if (generalSettings.platformIcon) {
-        const platformIcon = `${baseUrl}${generalSettings.platformIcon}`;
+        const platformIcon = `${baseUrl}${generalSettings.platformIcon?.path}`;
         logoElement.attr("src", platformIcon);
       }
 
