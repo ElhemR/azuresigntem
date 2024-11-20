@@ -239,21 +239,33 @@
 .show-content .spinner-container {
   visibility: hidden; /* Hide spinner when content is ready */
 }
-    .error.pageLevel {
-  position: fixed; /* Make it fixed at the bottom of the viewport */
-  bottom: 20px; /* Position it 20px from the bottom */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust for centering */
-  background-color: #DE2E21; /* Background color for error */
-  color: white; /* White text for readability */
-  padding: 16px 24px; /* Add padding for a better look */
-  border-radius: 8px; /* Rounded corners for the snackbar */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for depth */
-  z-index: 1000; /* Ensure it appears above other elements */
-  font-size: 1rem; /* Adjust font size */
-  text-align: center; /* Center align the text */
-  display: none; /* Initially hidden */
-  animation: fadeInOut 4s ease-in-out; /* Optional fade-in/out animation */
+   
+.error.pageLevel {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #DE2E21;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-size: 1rem;
+  display: flex; /* Flexbox layout */
+  align-items: center; /* Center content vertically */
+  justify-content: space-between; /* Space between icon and text */
+  max-width: 90%; /* Responsive width */
+  text-align: left; /* Align text to the left */
+    display: none; 
+   animation: fadeInOut 4s ease-in-out; 
+}
+
+.error.pageLevel .close-icon {
+  font-size: 1.5rem; 
+  color: white;
+  margin-left: 16px;
+  flex-shrink: 0; 
 }
 
 /* Fade-in and fade-out animation */
@@ -271,7 +283,9 @@
     transform: translateX(-50%) translateY(20px);
   }
 }
-    
+    .error.itemLevel {
+      color: #DE2E21;
+    }
   </style>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
@@ -349,7 +363,15 @@ toggleIcon.on("click", function () {
 
   }
       }
+   const errorDiv = $(".error.pageLevel");
+  if (errorDiv.length) {
+    // Create the close icon dynamically
+    const closeIcon = $('<span class="close-icon material-icons">close</span>');
 
+    // Append the close icon to the error div
+    errorDiv.append(closeIcon);
+
+  }
       const submitButtons = $("#api button[type='submit']");
       submitButtons.prop("class", "submit-btn");
       const legalAgeElement = loginForm.elements.find(el => el.id === "legalAge");
