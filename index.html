@@ -34,9 +34,9 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%);
+    
     }
-
+    
     .header-container {
       width: 100%;
       padding: 20px;
@@ -179,6 +179,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
 $(document).ready(function () {
+  const baseUrl = "https://www.dev.jti-connexus.com/";
   const params = new URLSearchParams(window.location.search);
   const apiUrl = params.get("url");
 
@@ -252,6 +253,25 @@ $(document).ready(function () {
         $("#api button[type='submit']").text(loginForm.buttonLabel);
       }
 
+      // Update main container background if backgroundLoginImage is defined
+      const mainContainer = $(".main-container");
+      if (generalSettings.backgroundLoginImage) {
+        const backgroundLoginImage = `${baseUrl}${generalSettings.backgroundLoginImage}`;
+        mainContainer.css("background-image", `url('${backgroundLoginImage}')`);
+      } else {
+        mainContainer.css(
+          "background",
+          "linear-gradient(145deg, rgba(207, 174, 168, 0.3) 16%, rgba(139, 188, 188, 0.3) 45%)"
+        );
+      }
+
+      // Update logo image if platformIcon is defined
+      const logoElement = $(".header-container .logo");
+      if (generalSettings.platformIcon) {
+        const platformIcon = `${baseUrl}${generalSettings.platformIcon}`;
+        logoElement.attr("src", platformIcon);
+      }
+
       $("body").css("visibility", "visible");
     } catch (error) {
       console.error("Error fetching data:", error.message);
@@ -267,7 +287,7 @@ $(document).ready(function () {
   <div class="header-container">
     <img src="{{LOGO_URL}}" alt="{{LOGO_ALT}}" class="logo">
   </div>
-
+  <div class="main-container>  
   <div class="welcome-message">{{WELCOME_MESSAGE}}</div>
 
   <div class="container">
@@ -275,5 +295,6 @@ $(document).ready(function () {
       <!-- Form content dynamically injected here -->
     </div>
   </div>
+</div>
 </body>
 </html>
