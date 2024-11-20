@@ -272,9 +272,27 @@ $(document).ready(function () {
       
       const passwordElement = loginForm.elements.find(el => el.id === "password");
       if (passwordElement) {
-        const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
-        $("#api label[for='password']").text(passwordLabelText);
-        $("#api input#password").attr("placeholder", passwordElement.placeholder);
+const passwordField = $("#api #password"); // Find the password field dynamically
+  const passwordLabel = $("#api label[for='password']"); // Find the label dynamically
+
+  if (passwordField.length && passwordLabel.length) {
+    // Update the label text with required indication
+    const passwordLabelText = passwordElement.placeholder + (passwordElement.required ? " *" : "");
+    passwordLabel.text(passwordLabelText);
+
+    // Create the toggle icon
+    const toggleIcon = $('<span class="toggle-icon">👁️</span>');
+
+    // Append the toggle icon inside the label
+    passwordLabel.append(toggleIcon);
+
+    // Add click event to toggle password visibility
+    toggleIcon.on("click", function () {
+      const type = passwordField.attr("type") === "password" ? "text" : "password";
+      passwordField.attr("type", type);
+      $(this).text(type === "password" ? "👁️" : "🙈");
+    });
+  }
       }
 
       const submitButtons = $("#api button[type='submit']");
